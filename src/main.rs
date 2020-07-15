@@ -5,7 +5,11 @@ use ggez::{
     event, ContextBuilder,
 };
 
+mod components;
+mod entities;
 mod main_state;
+mod systems;
+mod utils;
 use main_state::MainState;
 
 fn main() {
@@ -16,7 +20,7 @@ fn main() {
 
     let (mut ctx, mut event_loop) = ctx_builder.build().expect("Could not build Context.");
 
-    let mut state = MainState {};
+    let mut state = MainState::new(&mut ctx);
 
     match event::run(&mut ctx, &mut event_loop, &mut state) {
         Ok(_) => println!("Exited cleanly."),
