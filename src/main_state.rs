@@ -21,7 +21,7 @@ impl MainState {
         let mut specs_world = World::new();
         register_components(&mut specs_world);
 
-        test_level(&mut specs_world, assets.test_image.clone());
+        test_level(&mut specs_world, &assets);
 
         Self {
             assets,
@@ -43,14 +43,19 @@ impl EventHandler for MainState {
     }
 }
 
-struct Assets {
-    test_image: Image,
+pub struct Assets {
+    pub test_image: Image,
+    pub food_image: Image,
 }
 
 impl Assets {
     fn new(ctx: &mut Context) -> Self {
         let test_image = graphics::Image::new(ctx, "/assets/images/test.png").unwrap();
+        let food_image = graphics::Image::new(ctx, "/assets/images/food.png").unwrap();
 
-        Self { test_image }
+        Self {
+            test_image,
+            food_image,
+        }
     }
 }
