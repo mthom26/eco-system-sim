@@ -1,3 +1,4 @@
+mod move_system;
 mod rendering_system;
 
-pub use self::rendering_system::RenderingSystem;
+pub use self::{move_system::MoveSystem, rendering_system::RenderingSystem};

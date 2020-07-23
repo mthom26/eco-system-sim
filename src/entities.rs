@@ -1,7 +1,7 @@
 use ggez::graphics::Image;
 use specs::{Builder, World, WorldExt};
 
-use crate::components::{Position, Renderable};
+use crate::components::{Creature, Position, Renderable, Velocity};
 
 pub fn create_test(world: &mut World, pos: Position, image: Image) {
     world
@@ -15,6 +15,16 @@ pub fn create_food(world: &mut World, pos: Position, image: Image) {
     world
         .create_entity()
         .with(pos)
+        .with(Renderable { image })
+        .build();
+}
+
+pub fn create_creature(world: &mut World, pos: Position, image: Image) {
+    world
+        .create_entity()
+        .with(pos)
+        .with(Velocity::default())
+        .with(Creature::new(5.0))
         .with(Renderable { image })
         .build();
 }

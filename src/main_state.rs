@@ -5,7 +5,11 @@ use ggez::{
 };
 use specs::{RunNow, World, WorldExt};
 
-use crate::{components::register_components, systems::RenderingSystem, utils::test_level};
+use crate::{
+    components::register_components,
+    systems::{MoveSystem, RenderingSystem},
+    utils::test_level,
+};
 
 const CLEAR_COLOR: [f32; 4] = [0.1, 0.1, 0.1, 1.0];
 
@@ -32,6 +36,8 @@ impl MainState {
 
 impl EventHandler for MainState {
     fn update(&mut self, _ctx: &mut Context) -> GameResult {
+        let mut ms = MoveSystem {};
+        ms.run_now(&self.specs_world);
         Ok(())
     }
 
@@ -46,16 +52,19 @@ impl EventHandler for MainState {
 pub struct Assets {
     pub test_image: Image,
     pub food_image: Image,
+    pub creature_image: Image,
 }
 
 impl Assets {
     fn new(ctx: &mut Context) -> Self {
         let test_image = graphics::Image::new(ctx, "/assets/images/test.png").unwrap();
         let food_image = graphics::Image::new(ctx, "/assets/images/food.png").unwrap();
+        let creature_image = graphics::Image::new(ctx, "/assets/images/creature.png").unwrap();
 
         Self {
             test_image,
             food_image,
+            creature_image,
         }
     }
 }
