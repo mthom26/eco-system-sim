@@ -41,7 +41,7 @@ pub struct Renderable {
 pub struct Creature {
     // Timer to choose new velocity at random
     pub time: f32,
-    current_time: f32,
+    pub current_time: f32,
 }
 
 impl Creature {

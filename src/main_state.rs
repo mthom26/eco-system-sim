@@ -1,13 +1,14 @@
 use ggez::{
     event::EventHandler,
     graphics::{self, Color, Image},
-    Context, GameResult,
+    timer, Context, GameResult,
 };
 use specs::{RunNow, World, WorldExt};
 
 use crate::{
     components::register_components,
-    systems::{EdgeSystem, MoveSystem, RenderingSystem},
+    resources::{register_resources, Time},
+    systems::{CreatureUpdate, EdgeSystem, MoveSystem, RenderingSystem},
     utils::test_level,
 };
 
@@ -23,6 +24,7 @@ impl MainState {
         let assets = Assets::new(ctx);
 
         let mut specs_world = World::new();
+        register_resources(&mut specs_world);
         register_components(&mut specs_world);
 
         test_level(&mut specs_world, &assets);
@@ -35,11 +37,17 @@ impl MainState {
 }
 
 impl EventHandler for MainState {
-    fn update(&mut self, _ctx: &mut Context) -> GameResult {
+    fn update(&mut self, ctx: &mut Context) -> GameResult {
         let mut ms = MoveSystem {};
         ms.run_now(&self.specs_world);
         let mut es = EdgeSystem {};
         es.run_now(&self.specs_world);
+        let mut cs = CreatureUpdate {};
+        cs.run_now(&self.specs_world);
+
+        let mut time = self.specs_world.write_resource::<Time>();
+        time.delta = timer::delta(ctx).as_secs_f32();
+
         Ok(())
     }
 

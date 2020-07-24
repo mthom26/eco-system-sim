@@ -8,6 +8,7 @@ use ggez::{
 mod components;
 mod entities;
 mod main_state;
+mod resources;
 mod systems;
 mod utils;
 use main_state::MainState;
