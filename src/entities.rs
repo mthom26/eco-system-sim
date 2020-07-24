@@ -23,7 +23,7 @@ pub fn create_creature(world: &mut World, pos: Position, image: Image) {
     world
         .create_entity()
         .with(pos)
-        .with(Velocity::default())
+        .with(Velocity::new(0.4, 0.4))
         .with(Creature::new(5.0))
         .with(Renderable { image })
         .build();

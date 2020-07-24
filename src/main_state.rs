@@ -7,7 +7,7 @@ use specs::{RunNow, World, WorldExt};
 
 use crate::{
     components::register_components,
-    systems::{MoveSystem, RenderingSystem},
+    systems::{EdgeSystem, MoveSystem, RenderingSystem},
     utils::test_level,
 };
 
@@ -38,6 +38,8 @@ impl EventHandler for MainState {
     fn update(&mut self, _ctx: &mut Context) -> GameResult {
         let mut ms = MoveSystem {};
         ms.run_now(&self.specs_world);
+        let mut es = EdgeSystem {};
+        es.run_now(&self.specs_world);
         Ok(())
     }
 

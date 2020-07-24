@@ -21,12 +21,15 @@ pub struct Velocity {
     pub y: f32,
 }
 
-impl Default for Velocity {
-    fn default() -> Self {
-        Self { x: 0.1, y: 0.1 }
+impl Velocity {
+    pub fn new(x: f32, y: f32) -> Self {
+        Self { x, y }
     }
 }
 
+// Currently the Renderable component is drawn with its top left corner at the
+// origin point of the position. Need to add an offset (radius) to shift it so
+// it is centered
 #[derive(Component)]
 #[storage(VecStorage)]
 pub struct Renderable {
