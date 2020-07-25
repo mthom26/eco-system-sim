@@ -18,11 +18,10 @@ impl<'s> System<'s> for CreatureUpdate {
     fn run(&mut self, data: Self::SystemData) {
         let (time, mut creatures, mut velocities) = data;
 
-        for (creature, _vel) in (&mut creatures, &mut velocities).join() {
+        for (creature, vel) in (&mut creatures, &mut velocities).join() {
             creature.current_time -= time.delta;
             if creature.current_time < 0.0 {
-                // TODO - Get new random velocity
-                println!("Update creature velocity");
+                *vel = Velocity::new_random();
                 creature.current_time = creature.time;
             }
         }

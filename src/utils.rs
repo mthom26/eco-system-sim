@@ -24,12 +24,10 @@ pub fn test_level(world: &mut World, assets: &Assets) {
     }
 
     // create_test(world, Position::new(50.0, 50.0), assets.test_image.clone());
-    let random_velocity =
-        Velocity::new(rng.gen_range(-1.0, 1.0), rng.gen_range(-1.0, 1.0)).normalized();
     create_creature(
         world,
         Position::new(WIDTH / 2.0, HEIGHT / 2.0),
-        random_velocity,
+        Velocity::new_random(),
         assets.creature_image.clone(),
     );
 }

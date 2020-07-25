@@ -1,4 +1,5 @@
 use ggez::graphics::Image;
+use rand::{thread_rng, Rng};
 use specs::{Component, VecStorage, World, WorldExt};
 
 #[derive(Component, Debug, Copy, Clone)]
@@ -22,12 +23,15 @@ pub struct Velocity {
 }
 
 impl Velocity {
+    // Should probably normalize this
     pub fn new(x: f32, y: f32) -> Self {
         Self { x, y }
     }
 
-    // TODO maybe - add function for getting random velocity here
-    // pub fn new_random() {}
+    pub fn new_random() -> Self {
+        let mut rng = thread_rng();
+        Self::new(rng.gen_range(-1.0, 1.0), rng.gen_range(-1.0, 1.0)).normalized()
+    }
 
     pub fn normalized(self) -> Self {
         let mag = (self.x * self.x + self.y * self.y).sqrt();
