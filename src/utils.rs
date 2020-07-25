@@ -2,7 +2,7 @@ use rand::{thread_rng, Rng};
 use specs::World;
 
 use crate::{
-    components::Position,
+    components::{Position, Velocity},
     entities::{create_creature, create_food, create_test},
     main_state::Assets,
     HEIGHT, WIDTH,
@@ -24,9 +24,12 @@ pub fn test_level(world: &mut World, assets: &Assets) {
     }
 
     // create_test(world, Position::new(50.0, 50.0), assets.test_image.clone());
+    let random_velocity =
+        Velocity::new(rng.gen_range(-1.0, 1.0), rng.gen_range(-1.0, 1.0)).normalized();
     create_creature(
         world,
         Position::new(WIDTH / 2.0, HEIGHT / 2.0),
+        random_velocity,
         assets.creature_image.clone(),
     );
 }

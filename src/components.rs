@@ -25,6 +25,17 @@ impl Velocity {
     pub fn new(x: f32, y: f32) -> Self {
         Self { x, y }
     }
+
+    // TODO maybe - add function for getting random velocity here
+    // pub fn new_random() {}
+
+    pub fn normalized(self) -> Self {
+        let mag = (self.x * self.x + self.y * self.y).sqrt();
+        Velocity {
+            x: self.x / mag,
+            y: self.y / mag,
+        }
+    }
 }
 
 // Currently the Renderable component is drawn with its top left corner at the
@@ -42,13 +53,16 @@ pub struct Creature {
     // Timer to choose new velocity at random
     pub time: f32,
     pub current_time: f32,
+    // Magnitude of creatures velocity
+    pub velocity: f32,
 }
 
 impl Creature {
-    pub fn new(time: f32) -> Self {
+    pub fn new(time: f32, velocity: f32) -> Self {
         Self {
             time,
             current_time: time,
+            velocity,
         }
     }
 }
